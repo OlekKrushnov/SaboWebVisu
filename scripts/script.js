@@ -35,7 +35,7 @@ function initSplashScreen() {
             splashScreen.remove();
         }, 800); // Zeit für Fade-Out Animation
 
-    }, 2000); // 2 Sekunden Splash-Anzeige
+    }, 3000); // 3 Sekunden Splash-Anzeige
 }
 
 // Splash Screen beim Laden starten
