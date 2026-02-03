@@ -54,7 +54,7 @@ function initSplashScreen() {
             const targetWidth = 80;
 
             // Transition setzen und zum Ziel animieren
-            splashLogo.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            splashLogo.style.transition = 'all 2s cubic-bezier(0.4, 0, 0.2, 1)';
             splashLogo.style.left = (window.innerWidth - targetRight - targetWidth) + 'px';
             splashLogo.style.top = targetTop + 'px';
             splashLogo.style.width = targetWidth + 'px';
@@ -86,9 +86,9 @@ function initSplashScreen() {
                 splashScreen.remove();
             }, 800);
 
-        }, 1000); // 1 Sekunde für Logo-Animation
+        }, 2000); // 2 Sekunden für Logo-Animation
 
-    }, 3000); // 3 Sekunden Splash-Anzeige
+    }, 2000); // 2 Sekunden Splash-Anzeige
 }
 
 // Splash Screen beim Laden starten
