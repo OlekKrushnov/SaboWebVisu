@@ -1,0 +1,1034 @@
+/* --- BASIS LAYOUT --- */
+.room-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 12px;
+}
+
+/* --- GLASSMORPHISM KACHEL --- */
+.room-card-glass {
+    position: relative;
+    min-height: 220px;
+    border-radius: 28px;
+    cursor: pointer;
+    overflow: visible;
+    transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Glassmorphism Hintergrund */
+.room-card-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 28px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+}
+
+body.dark-theme .room-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Hover Effekt */
+.room-card-glass:hover .room-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.08) 100%);
+    transform: scale(1.02);
+    box-shadow:
+        0 12px 48px rgba(0, 180, 216, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+body.dark-theme .room-card-glass:hover .room-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(255, 255, 255, 0.06) 100%);
+    box-shadow:
+        0 12px 48px rgba(0, 217, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.room-card-glass:active {
+    transform: scale(0.98);
+}
+
+/* Content Container */
+.room-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 24px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: normal;
+    gap: 8px;
+}
+
+/* --- HEADER BEREICH --- */
+.room-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.room-icon-wrapper {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            rgba(0, 180, 216, 0.1) 0%,
+            rgba(0, 150, 199, 0.05) 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    backdrop-filter: blur(10px);
+    flex-shrink: 0;
+}
+
+body.dark-theme .room-icon-wrapper {
+    background: linear-gradient(135deg,
+            rgba(0, 217, 255, 0.15) 0%,
+            rgba(0, 180, 216, 0.08) 100%);
+    border: 1px solid rgba(0, 217, 255, 0.25);
+}
+
+.room-icon-large {
+    font-size: 36px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* Leuchtender Glow bei aktiven Lichtern */
+.light-glow {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle, #ffd93d 0%, #ffb700 100%);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow:
+        0 0 20px rgba(255, 217, 61, 0.6),
+        0 0 40px rgba(255, 217, 61, 0.4);
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.room-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    flex: 1;
+}
+
+/* --- KLIMA BEREICH --- */
+.room-climate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    margin: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.climate-main {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.temp-display {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.temp-unit {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+}
+
+.climate-humidity {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(0, 180, 216, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+body.dark-theme .climate-humidity {
+    background: rgba(0, 217, 255, 0.12);
+    border: 1px solid rgba(0, 217, 255, 0.25);
+}
+
+.humidity-icon {
+    font-size: 18px !important;
+    color: var(--accent-primary);
+}
+
+/* --- GERÄTE BADGES --- */
+.room-devices {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 12px 0 0 0;
+}
+
+.device-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .device-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.device-badge .material-icons {
+    font-size: 18px !important;
+    color: var(--text-tertiary);
+}
+
+/* Aktives Licht Badge */
+.device-badge.light-active {
+    background: linear-gradient(135deg,
+            rgba(255, 217, 61, 0.2) 0%,
+            rgba(255, 183, 0, 0.15) 100%);
+    border-color: rgba(255, 217, 61, 0.4);
+    color: #ffb700;
+    box-shadow: 0 0 20px rgba(255, 217, 61, 0.3);
+}
+
+.device-badge.light-active .material-icons {
+    color: #ffd93d;
+}
+
+/* Heizungs-Badge - Rot wenn aktiv (Heizen) */
+.device-badge.heat-active {
+    background: linear-gradient(135deg,
+            rgba(239, 68, 68, 0.2) 0%,
+            rgba(220, 38, 38, 0.15) 100%);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+.device-badge.heat-active .material-icons {
+    color: #ef4444;
+}
+
+/* Kühlungs-Badge - Blau wenn aktiv (Kühlen) */
+.device-badge.cool-active {
+    background: linear-gradient(135deg,
+            rgba(59, 130, 246, 0.2) 0%,
+            rgba(37, 99, 235, 0.15) 100%);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #3b82f6;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.device-badge.cool-active .material-icons {
+    color: #3b82f6;
+}
+
+/* --- ANIMATIONS --- */
+.fade-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+    .room-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+    }
+
+    .room-card-glass {
+        min-height: 250px;
+    }
+
+    .room-card-content {
+        padding: 20px;
+        min-height: 190px;
+    }
+
+    .room-icon-wrapper {
+        width: 56px;
+        height: 56px;
+    }
+
+    .room-icon-large {
+        font-size: 32px;
+    }
+
+    .room-title {
+        font-size: 1.1rem;
+    }
+
+    .temp-display {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    .room-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
+/* ========================================
+   GERÄTE-KACHELN (RAUM-DETAILANSICHT)
+   ======================================== */
+
+/* Device Card Glassmorphism */
+.device-card-glass {
+    position: relative;
+    min-height: 200px;
+    border-radius: 24px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.device-card-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .device-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.device-card-glass:hover .device-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.08) 100%);
+    box-shadow:
+        0 12px 40px rgba(0, 180, 216, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+body.dark-theme .device-card-glass:hover .device-card-bg {
+    box-shadow:
+        0 12px 40px rgba(0, 217, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.device-card-glass:active {
+    transform: scale(0.98);
+}
+
+.device-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Device Header */
+.device-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.device-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            rgba(0, 180, 216, 0.15) 0%,
+            rgba(0, 150, 199, 0.08) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 180, 216, 0.3);
+    backdrop-filter: blur(10px);
+    flex-shrink: 0;
+}
+
+body.dark-theme .device-icon-wrapper {
+    background: linear-gradient(135deg,
+            rgba(0, 217, 255, 0.18) 0%,
+            rgba(0, 180, 216, 0.1) 100%);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+}
+
+.device-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.device-name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+    flex: 1;
+}
+
+/* Device Controls Container */
+.device-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Modern Sliders */
+.modern-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Dimmer Slider */
+.dimmer-slider {
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.2) 0%,
+            var(--accent-primary) 100%);
+}
+
+/* RGB Dimmer Slider - lässt inline-style die Farbe steuern */
+.dimmer-slider.rgb-dimmer-slider {
+    background: none;
+    /* wird via inline-style von JS gesetzt */
+}
+
+.dimmer-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    border: 2px solid var(--accent-primary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.dimmer-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.4);
+}
+
+.dimmer-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    border: 2px solid var(--accent-primary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+/* RGB Slider */
+.rgb-slider {
+    background: linear-gradient(to right,
+            #ff0000 0%, #ffff00 17%, #00ff00 33%,
+            #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+}
+
+.rgb-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.rgb-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.rgb-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.slider-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    margin-top: -6px;
+}
+
+/* VERBESSERT: Light Card States mit Dimmer-Opacity-Effekt */
+.device-card-glass[data-type="light"].is-on .device-card-bg,
+.device-card-glass[data-type="dimmer"].is-on .device-card-bg,
+.device-card-glass[data-type="rgb"].is-on .device-card-bg {
+    /* --dim-opacity wird von JavaScript gesetzt (0.0 bis 1.0) */
+    background: linear-gradient(135deg,
+            rgba(255, 217, 61, calc(0.2 * var(--dim-opacity, 1))) 0%,
+            rgba(255, 183, 0, calc(0.1 * var(--dim-opacity, 1))) 100%);
+    border-color: rgba(255, 217, 61, calc(0.4 * var(--dim-opacity, 1)));
+    box-shadow:
+        0 8px 32px rgba(255, 217, 61, calc(0.3 * var(--dim-opacity, 1))),
+        0 0 40px rgba(255, 217, 61, calc(0.2 * var(--dim-opacity, 1))),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+body.dark-theme .device-card-glass[data-type="light"].is-on .device-card-bg,
+body.dark-theme .device-card-glass[data-type="dimmer"].is-on .device-card-bg,
+body.dark-theme .device-card-glass[data-type="rgb"].is-on .device-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 217, 61, calc(0.25 * var(--dim-opacity, 1))) 0%,
+            rgba(255, 183, 0, calc(0.15 * var(--dim-opacity, 1))) 100%);
+    box-shadow:
+        0 8px 32px rgba(255, 217, 61, calc(0.4 * var(--dim-opacity, 1))),
+        0 0 40px rgba(255, 217, 61, calc(0.25 * var(--dim-opacity, 1))),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* NEU: Light Mode - Geräte die AUS sind haben einen nicht-transparenten Hintergrund */
+.device-card-glass[data-type="light"]:not(.is-on) .device-card-bg,
+.device-card-glass[data-type="dimmer"]:not(.is-on) .device-card-bg,
+.device-card-glass[data-type="rgb"]:not(.is-on) .device-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.2) 100%);
+}
+
+body.dark-theme .device-card-glass[data-type="light"]:not(.is-on) .device-card-bg,
+body.dark-theme .device-card-glass[data-type="dimmer"]:not(.is-on) .device-card-bg,
+body.dark-theme .device-card-glass[data-type="rgb"]:not(.is-on) .device-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%);
+}
+
+/* ========================================
+   STOREN/BLINDS CONTROLS - GRAFISCH
+   ======================================== */
+
+.blend-container-modern {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+/* ========================================
+   REALISTIC WINDOW VIEW
+   ======================================== */
+.blind-visual {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid #5d4e42;
+    box-shadow:
+        inset 0 0 0 2px #7a6a5c,
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    /* Default sky background als Fallback */
+    background: linear-gradient(180deg, #0f1a2e 0%, #1e3a5f 50%, #2d4a6f 100%);
+}
+
+/* Window Sky - Basis-Element */
+.window-sky {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+/* Celestial Body (Sonne/Mond) */
+.celestial-body {
+    position: absolute;
+    z-index: 2;
+    top: 15px;
+    right: 20%;
+}
+
+/* Landscape */
+.window-landscape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+}
+
+/* Fensterrahmen-Kreuz */
+.window-frame {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+}
+
+.window-frame::before,
+.window-frame::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(180deg, #6d5c4e 0%, #4a3f35 50%, #3d342c 100%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+}
+
+/* Vertikaler Rahmenbalken */
+.window-frame::before {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 6px;
+    transform: translateX(-50%);
+}
+
+/* Horizontaler Rahmenbalken */
+.window-frame::after {
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 6px;
+    transform: translateY(-50%);
+}
+
+/* ========================================
+   TAG-ANSICHT (Day)
+   ======================================== */
+.blind-visual.day .window-sky {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            #87CEEB 0%,
+            #B0E2FF 40%,
+            #E0F7FF 80%);
+}
+
+.blind-visual.day .celestial-body {
+    position: absolute;
+    top: 20px;
+    right: 25%;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle,
+            #FFD700 0%,
+            #FFA500 60%,
+            transparent 70%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 40px 15px rgba(255, 215, 0, 0.4),
+        0 0 80px 30px rgba(255, 165, 0, 0.2);
+    animation: sunGlow 3s ease-in-out infinite;
+}
+
+@keyframes sunGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 40px 15px rgba(255, 215, 0, 0.4), 0 0 80px 30px rgba(255, 165, 0, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 50px 20px rgba(255, 215, 0, 0.5), 0 0 100px 40px rgba(255, 165, 0, 0.3);
+    }
+}
+
+.blind-visual.day .window-landscape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background:
+        linear-gradient(180deg,
+            transparent 0%,
+            rgba(76, 175, 80, 0.1) 20%),
+        linear-gradient(180deg,
+            #7CB342 0%,
+            #558B2F 50%,
+            #33691E 100%);
+    clip-path: polygon(0% 50%,
+            15% 35%,
+            30% 45%,
+            45% 25%,
+            60% 40%,
+            75% 20%,
+            90% 35%,
+            100% 30%,
+            100% 100%,
+            0% 100%);
+}
+
+/* ========================================
+   NACHT-ANSICHT (Night)
+   ======================================== */
+.blind-visual.night .window-sky {
+    background: linear-gradient(180deg,
+            #0a0a1a 0%,
+            #15152e 30%,
+            #1e2040 70%,
+            #252850 100%);
+}
+
+/* Sterne - mehr und heller */
+.blind-visual.night .window-sky::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20px 25px, #fff, transparent),
+        radial-gradient(2px 2px at 50px 15px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 80px 35px, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(2px 2px at 120px 20px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 150px 45px, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(2px 2px at 180px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 35px 55px, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 100px 60px, #fff, transparent),
+        radial-gradient(1px 1px at 200px 50px, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(2px 2px at 250px 25px, #fff, transparent),
+        radial-gradient(1px 1px at 70px 70px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1.5px 1.5px at 220px 55px, #fff, transparent);
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Großer, leuchtender Mond */
+.blind-visual.night .celestial-body {
+    width: 45px;
+    height: 45px;
+    background: radial-gradient(circle at 65% 35%,
+            #fffef0 0%,
+            #f5f5dc 40%,
+            #e8e4c9 70%,
+            #d4d0b8 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 15px 5px rgba(255, 255, 240, 0.6),
+        0 0 35px 12px rgba(255, 255, 200, 0.4),
+        0 0 60px 20px rgba(255, 255, 150, 0.2);
+}
+
+/* Mond-Krater - subtiler */
+.blind-visual.night .celestial-body::before,
+.blind-visual.night .celestial-body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(180, 175, 160, 0.4);
+}
+
+.blind-visual.night .celestial-body::before {
+    width: 10px;
+    height: 10px;
+    top: 12px;
+    left: 8px;
+}
+
+.blind-visual.night .celestial-body::after {
+    width: 6px;
+    height: 6px;
+    top: 24px;
+    left: 22px;
+}
+
+/* Nacht-Landschaft - dunkle Silhouette mit Kontrast */
+.blind-visual.night .window-landscape {
+    height: 55%;
+    background: linear-gradient(180deg,
+            #1a1a35 0%,
+            #12122a 50%,
+            #0a0a1a 100%);
+    clip-path: polygon(0% 55%,
+            12% 40%,
+            25% 50%,
+            40% 30%,
+            55% 45%,
+            70% 25%,
+            85% 40%,
+            100% 35%,
+            100% 100%,
+            0% 100%);
+}
+
+/* Abdunkelung von oben nach unten (basierend auf Position) */
+.blind-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* Höhe wird von JavaScript gesetzt basierend auf position */
+    height: var(--pos, 0%);
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.6) 0%,
+            rgba(0, 0, 0, 0.4) 100%);
+    z-index: 2;
+    transition: height 0.3s ease;
+    pointer-events: none;
+}
+
+body.dark-theme .blind-overlay {
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.6) 100%);
+}
+
+.blend-controls-modern {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.btn-modern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 16px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+body.dark-theme .btn-modern {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-modern:hover {
+    background: rgba(0, 180, 216, 0.15);
+    border-color: rgba(0, 180, 216, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2);
+}
+
+.btn-modern:active {
+    transform: translateY(0);
+}
+
+.btn-modern .material-icons {
+    font-size: 24px;
+    color: var(--accent-primary);
+}
+
+.btn-stop {
+    background: rgba(244, 67, 54, 0.1);
+    border-color: rgba(244, 67, 54, 0.3);
+}
+
+.btn-stop:hover {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: rgba(244, 67, 54, 0.5);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.btn-stop .material-icons {
+    color: #f44336;
+}
+
+/* Active state for driving */
+.btn-modern.is-driving {
+    background: linear-gradient(135deg,
+            rgba(16, 185, 129, 0.3) 0%,
+            rgba(5, 150, 105, 0.2) 100%);
+    border-color: rgba(16, 185, 129, 0.5);
+    color: #10b981;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    animation: pulseButton 1.5s infinite;
+}
+
+.btn-modern.is-driving .material-icons {
+    color: #10b981;
+}
+
+@keyframes pulseButton {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* ========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   KOMPLETT ohne backdrop-filter
+   ======================================== */
+@media (max-width: 768px) {
+
+    /* LIGHT-GLOW KOMPLETT AUSBLENDEN - Hauptursache für Flackern */
+    .light-glow {
+        display: none !important;
+    }
+
+    /* Deaktiviere ALLE Animationen */
+    .light-indicator,
+    .blind-visual.day .celestial-body,
+    .blind-visual.night .celestial-body,
+    .blind-visual.night .window-sky::before,
+    .btn-modern.is-driving {
+        animation: none !important;
+    }
+
+    /* KOMPLETT backdrop-filter entfernen */
+    .room-card-bg {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: var(--card-bg) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    body.dark-theme .room-card-bg {
+        background: rgba(30, 32, 44, 0.98) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    /* Nur NICHT-aktive Geräte bekommen solid background */
+    .device-card-glass:not(.is-on) .device-card-bg {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: var(--card-bg) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    body.dark-theme .device-card-glass:not(.is-on) .device-card-bg {
+        background: rgba(30, 32, 44, 0.98) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    /* Aktive Lichter - nur backdrop-filter entfernen, Farbe beibehalten */
+    .device-card-glass.is-on .device-card-bg {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Keine Transitions für Performance */
+    .room-card-glass,
+    .device-card-glass,
+    .room-card-bg,
+    .device-card-bg {
+        transition: none !important;
+    }
+}

@@ -1,0 +1,20 @@
+/* Spezifische Zustände für leuchtende Kacheln - Legacy Support */
+/* Diese Regeln werden von den neuen device-card-glass Styles überschrieben */
+.room-card.is-on {
+    background-color: #ffeb3b !important;
+    border-color: #fbc02d !important;
+    box-shadow: 0 0 25px rgba(251, 192, 45, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Spezialregel für Dimmer: Hintergrundhelligkeit steuerbar */
+.room-card[data-type="dimmer"].is-on {
+    background-color: rgba(255, 235, 59, var(--dim-opacity, 1)) !important;
+}
+
+/* Spezialregel für RGB: Farbe und Helligkeit steuerbar */
+.room-card[data-type="rgb"].is-on {
+    border-color: rgb(var(--r), var(--g), var(--b)) !important;
+    box-shadow: 0 0 25px rgba(var(--r), var(--g), var(--b), 0.5);
+    background-color: rgba(var(--r), var(--g), var(--b), var(--dim-opacity, 1)) !important;
+}

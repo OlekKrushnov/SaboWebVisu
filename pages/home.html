@@ -1,0 +1,51 @@
+<!-- Begrüßung -->
+<div class="greeting-section fade-in">
+    <h1 class="greeting-text" id="greeting-text">Willkommen</h1>
+    <p class="greeting-date" id="greeting-date"></p>
+</div>
+
+<!-- Globale Szenen (Schnellzugriffe) -->
+<section class="home-section fade-in">
+    <h2 class="section-title">
+        <span class="material-icons">auto_awesome</span>
+        Schnellzugriff
+    </h2>
+    <div class="scenes-grid" id="global-scenes-grid">
+        <!-- Dynamisch von scene.js befüllt -->
+    </div>
+</section>
+
+<!-- Abstand zwischen Schnellzugriffe und Wetter -->
+<div class="section-spacer"></div>
+
+<!-- Wetter Widget mit Überschrift -->
+<section class="home-section fade-in">
+    <h2 class="section-title">
+        <span class="material-icons">cloud</span>
+        Wetterdaten
+    </h2>
+    <div class="weather-widget" id="weather-summary">
+        <div class="weather-main">
+            <div class="temp-big">
+                <span id="out-temp">--</span>
+            </div>
+            <div class="weather-status">
+                <span id="rain-status">Kein Regen</span>
+            </div>
+        </div>
+        <div class="weather-details">
+            <div class="w-item">
+                <span class="material-icons">wb_sunny</span>
+                <span id="lux-value">--</span> Lux
+            </div>
+            <div class="w-item">
+                <span class="material-icons">air</span>
+                <span id="wind-value">--</span>
+            </div>
+            <div class="w-item">
+                <span class="material-icons" id="sun-moon-icon">wb_sunny</span>
+                <span id="sun-pos-text">--</span>
+            </div>
+        </div>
+    </div>
+</section>

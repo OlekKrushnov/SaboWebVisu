@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Icon Generator</title>
+</head>
+
+<body>
+    <h1>PWA Icon Generator</h1>
+    <p>Rechtsklick auf das Icon und "Bild speichern unter..." wählen</p>
+
+    <h2>192x192</h2>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <br><a id="link192" download="icon-192x192.png">Download 192x192</a>
+
+    <h2>512x512</h2>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <br><a id="link512" download="icon-512x512.png">Download 512x512</a>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const scale = size / 512;
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#0077b6');
+            gradient.addColorStop(1, '#00b4d8');
+
+            // Rounded rectangle background
+            ctx.beginPath();
+            const radius = 100 * scale;
+            ctx.moveTo(radius, 0);
+            ctx.lineTo(size - radius, 0);
+            ctx.quadraticCurveTo(size, 0, size, radius);
+            ctx.lineTo(size, size - radius);
+            ctx.quadraticCurveTo(size, size, size - radius, size);
+            ctx.lineTo(radius, size);
+            ctx.quadraticCurveTo(0, size, 0, size - radius);
+            ctx.lineTo(0, radius);
+            ctx.quadraticCurveTo(0, 0, radius, 0);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // House body
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.moveTo(256 * scale, 100 * scale);
+            ctx.lineTo(420 * scale, 220 * scale);
+            ctx.lineTo(420 * scale, 400 * scale);
+            ctx.lineTo(92 * scale, 400 * scale);
+            ctx.lineTo(92 * scale, 220 * scale);
+            ctx.closePath();
+            ctx.fill();
+
+            // Roof
+            ctx.beginPath();
+            ctx.moveTo(256 * scale, 80 * scale);
+            ctx.lineTo(440 * scale, 210 * scale);
+            ctx.lineTo(420 * scale, 220 * scale);
+            ctx.lineTo(256 * scale, 100 * scale);
+            ctx.lineTo(92 * scale, 220 * scale);
+            ctx.lineTo(72 * scale, 210 * scale);
+            ctx.closePath();
+            ctx.fill();
+
+            // Door
+            ctx.fillStyle = '#0077b6';
+            ctx.beginPath();
+            ctx.roundRect(220 * scale, 280 * scale, 72 * scale, 120 * scale, 8 * scale);
+            ctx.fill();
+
+            // Window 1 (glowing)
+            const glowGradient = ctx.createLinearGradient(130 * scale, 250 * scale, 190 * scale, 310 * scale);
+            glowGradient.addColorStop(0, '#00d4ff');
+            glowGradient.addColorStop(1, '#00b4d8');
+            ctx.fillStyle = glowGradient;
+            ctx.beginPath();
+            ctx.roundRect(130 * scale, 250 * scale, 60 * scale, 60 * scale, 6 * scale);
+            ctx.fill();
+
+            // Window 1 frame
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 4 * scale;
+            ctx.stroke();
+
+            // Window 1 cross
+            ctx.lineWidth = 3 * scale;
+            ctx.beginPath();
+            ctx.moveTo(160 * scale, 250 * scale);
+            ctx.lineTo(160 * scale, 310 * scale);
+            ctx.moveTo(130 * scale, 280 * scale);
+            ctx.lineTo(190 * scale, 280 * scale);
+            ctx.stroke();
+
+            // Window 2
+            ctx.fillStyle = glowGradient;
+            ctx.globalAlpha = 0.6;
+            ctx.beginPath();
+            ctx.roundRect(322 * scale, 250 * scale, 60 * scale, 60 * scale, 6 * scale);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 4 * scale;
+            ctx.stroke();
+
+            ctx.lineWidth = 3 * scale;
+            ctx.beginPath();
+            ctx.moveTo(352 * scale, 250 * scale);
+            ctx.lineTo(352 * scale, 310 * scale);
+            ctx.moveTo(322 * scale, 280 * scale);
+            ctx.lineTo(382 * scale, 280 * scale);
+            ctx.stroke();
+        }
+
+        // Generate icons
+        const canvas192 = document.getElementById('canvas192');
+        const canvas512 = document.getElementById('canvas512');
+
+        drawIcon(canvas192, 192);
+        drawIcon(canvas512, 512);
+
+        // Create download links
+        document.getElementById('link192').href = canvas192.toDataURL('image/png');
+        document.getElementById('link512').href = canvas512.toDataURL('image/png');
+    </script>
+</body>
+
+</html>

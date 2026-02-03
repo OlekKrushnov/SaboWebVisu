@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Steuerung</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#00b4d8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Smart Home">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Smart Home">
+    <meta name="msapplication-TileColor" content="#00b4d8">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- App Icons -->
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/raeume.css">
+    <link rel="stylesheet" href="styles/circularslider.css">
+    <link rel="stylesheet" href="styles/blind.css">
+    <link rel="stylesheet" href="styles/light.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header class="top-bar">
+        <div id="burger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div id="fix-header-title" class="header-title">Smart Home</div>
+    </header>
+
+    <nav id="side-menu">
+        <ul>
+            <li><a href="javascript:void(0)" onclick="loadPage('home', this)">Home</a></li>
+            <li><a href="javascript:void(0)" onclick="loadPage('raeume', this)">Räume</a></li>
+            <li><a href="javascript:void(0)" onclick="loadPage('sensorik', this)">Sensorik</a></li>
+            <li><a href="javascript:void(0)" onclick="loadPage('cameras', this)">Cameras</a></li>
+        </ul>
+        <div class="side-menu-footer">
+            <div class="side-footer-item" onclick="loadPage('settings', this)">
+                <span class="material-icons">settings</span>
+            </div>
+            <div class="side-footer-item" id="theme-toggle" onclick="toggleDarkMode()">
+                <span class="material-icons">dark_mode</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="main-content">
+        <h1>Willkommen</h1>
+        <p>Wähle einen Bereich aus dem Menü.</p>
+    </div>
+
+    <nav id="room-bottom-bar" class="bottom-bar">
+        <div class="bottom-item" onclick="loadPage('raeume', document.querySelector('a[onclick*=\'raeume\']'))">
+            <span class="bottom-icon">⬅️</span>
+            <span class="bottom-text">Zurück</span>
+        </div>
+        <div id="tab-light" class="bottom-item active" onclick="filterRoomDevices('light')">
+            <span class="bottom-icon">💡</span>
+            <span class="bottom-text">Licht</span>
+        </div>
+        <div id="tab-scene" class="bottom-item" onclick="filterRoomDevices('scene')">
+            <span class="bottom-icon">🎬</span>
+            <span class="bottom-text">Szenen</span>
+        </div>
+        <div id="tab-blend" class="bottom-item" onclick="filterRoomDevices('blend')">
+            <span class="bottom-icon">🪟</span>
+            <span class="bottom-text">Storen</span>
+        </div>
+        <div id="tab-heat" class="bottom-item" onclick="filterRoomDevices('heat')">
+            <span class="bottom-icon">🌡️</span>
+            <span class="bottom-text">Heizung</span>
+        </div>
+    </nav>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/scene.js"></script>
+    <script src="scripts/sensorik.js"></script>
+
+    <script src="scripts/light.js"></script>
+    <script src="scripts/blind.js"></script>
+    <script src="scripts/circularslider.js"></script>
+
+    <script src="scripts/raum.js"></script>
+    <script src="scripts/settings.js"></script>
+
+    <script src="scripts/script.js"></script>
+
+    <!-- Service Worker Registration für PWA -->
+    <!-- DEAKTIVIERT: Selbst-signierte Zertifikate funktionieren nicht für Service Worker auf Mobile -->
+    <!-- Für Produktion mit echtem SSL-Zertifikat wieder aktivieren -->
+    <!--
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registriert:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker Fehler:', error);
+                    });
+            });
+        }
+    </script>
+    -->
+
+</body>
+
+</html>

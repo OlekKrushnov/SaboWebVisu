@@ -1,0 +1,1138 @@
+/* --- CSS VARIABLEN FÜR LIGHT & DARK MODE --- */
+:root {
+    /* Light Mode Farben */
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f3f5;
+    --text-primary: #212529;
+    --text-secondary: #495057;
+    --text-tertiary: #868e96;
+    --border-color: #e9ecef;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --accent-primary: #00b4d8;
+    --accent-secondary: #0096c7;
+    --accent-gradient: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+    --header-bg: #ffffff;
+    --header-text: #212529;
+    --menu-bg: #ffffff;
+    --menu-item-hover: #f8f9fa;
+    --card-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-border: #dee2e6;
+}
+
+body.dark-theme {
+    /* Dark Mode Farben */
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f26;
+    --bg-tertiary: #242b35;
+    --text-primary: #e9ecef;
+    --text-secondary: #ced4da;
+    --text-tertiary: #868e96;
+    --border-color: #2d3540;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --accent-primary: #00d9ff;
+    --accent-secondary: #00b4d8;
+    --accent-gradient: linear-gradient(135deg, #00d9ff 0%, #00b4d8 100%);
+    --header-bg: #1a1f26;
+    --header-text: #e9ecef;
+    --menu-bg: #1a1f26;
+    --menu-item-hover: #242b35;
+    --card-bg: #1a1f26;
+    --input-bg: #242b35;
+    --input-border: #2d3540;
+}
+
+/* --- 1. GRUNDSTYLING --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- 2. TOP-BAR & BOTTOM-BAR --- */
+.top-bar,
+.bottom-bar {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 2100;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.top-bar {
+    top: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    background-color: var(--header-bg);
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(20px);
+}
+
+/* VERBESSERTE BOTTOM BAR - Morphglass Design */
+.bottom-bar {
+    bottom: 0;
+    height: 80px;
+    display: none;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1800;
+
+    /* Morphglass Effekt */
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(255, 255, 255, 0.06) 100%);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        0 -4px 24px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    /* Elegant gerundet an den oberen Ecken */
+    border-radius: 24px 24px 0 0;
+    padding: 0 16px;
+}
+
+body.dark-theme .bottom-bar {
+    background: linear-gradient(135deg,
+            rgba(26, 31, 38, 0.85) 0%,
+            rgba(26, 31, 38, 0.7) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 -4px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.bottom-bar.visible {
+    display: flex;
+}
+
+.header-title {
+    margin-left: 50px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--header-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.02em;
+}
+
+/* --- 3. NAVIGATION ITEMS - Modernisiert --- */
+.bottom-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    height: 100%;
+    position: relative;
+    padding: 8px;
+    border-radius: 16px;
+    max-width: 90px;
+}
+
+/* KORRIGIERT: Highlight-Rechteck gleiche Höhe wie Bottom Bar, aber Inset */
+.bottom-item::before {
+    content: '';
+    position: absolute;
+    /* Inset für Padding - das Rechteck ist innerhalb der Bottom Bar */
+    top: 8px;
+    bottom: 8px;
+    left: 4px;
+    right: 4px;
+    background: linear-gradient(135deg,
+            rgba(0, 180, 216, 0.15) 0%,
+            rgba(0, 150, 199, 0.08) 100%);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.dark-theme .bottom-item::before {
+    background: linear-gradient(135deg,
+            rgba(0, 217, 255, 0.18) 0%,
+            rgba(0, 180, 216, 0.1) 100%);
+}
+
+.bottom-item.active::before {
+    opacity: 1;
+}
+
+/* Indikator direkt ÜBER dem Highlight-Rechteck */
+.bottom-item::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    /* Direkt über dem Highlight (das bei top: 8px startet) */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--accent-gradient);
+    border-radius: 4px;
+    opacity: 0;
+    box-shadow: 0 2px 12px rgba(0, 180, 216, 0.4);
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.bottom-item.active::after {
+    opacity: 1;
+}
+
+.bottom-item.active {
+    color: var(--accent-primary);
+}
+
+.bottom-item:hover:not(.active) {
+    color: var(--text-secondary);
+    transform: translateY(-2px);
+}
+
+.bottom-item:hover:not(.active)::before {
+    opacity: 0.3;
+}
+
+.bottom-icon {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.bottom-item.active .bottom-icon {
+    transform: scale(1.1);
+}
+
+.bottom-text {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- 4. CONTAINER & CONTENT --- */
+.container {
+    padding: 24px;
+    padding-top: 88px;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+.container.with-bottom-bar {
+    padding-bottom: 110px;
+}
+
+/* --- 5. BURGER & MENU --- */
+#burger-icon {
+    width: 28px;
+    height: 22px;
+    position: fixed;
+    top: 21px;
+    left: 24px;
+    cursor: pointer;
+    z-index: 2200;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#burger-icon span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-primary);
+    border-radius: 3px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+#burger-icon.open span:nth-child(1) {
+    transform: translateY(9.5px) rotate(45deg);
+}
+
+#burger-icon.open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+#burger-icon.open span:nth-child(3) {
+    transform: translateY(-9.5px) rotate(-45deg);
+}
+
+#side-menu {
+    position: fixed;
+    top: 64px;
+    left: -100%;
+    height: calc(100vh - 64px);
+    background-color: var(--menu-bg);
+    transition: left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    z-index: 2000;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--border-color);
+}
+
+#side-menu.open {
+    left: 0;
+}
+
+#side-menu ul {
+    list-style: none;
+    padding: 16px 0;
+    margin: 0;
+}
+
+#side-menu li {
+    border-bottom: 1px solid var(--border-color);
+}
+
+#side-menu li a {
+    display: block;
+    padding: 18px 28px;
+    color: var(--text-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+#side-menu li a:hover {
+    background: var(--menu-item-hover);
+    border-left-color: var(--accent-primary);
+}
+
+#side-menu li a.active {
+    color: var(--accent-primary);
+    border-left-color: var(--accent-primary);
+    background: var(--menu-item-hover);
+}
+
+/* Der Footer-Bereich im Menü */
+.side-menu-footer {
+    height: 72px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-tertiary);
+    padding: 0 16px;
+}
+
+.side-footer-item {
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+}
+
+.side-footer-item:hover {
+    color: var(--accent-primary);
+    background-color: var(--menu-item-hover);
+}
+
+.side-footer-item .material-icons {
+    font-size: 24px;
+}
+
+/* --- 6. RESPONSIVE --- */
+@media (min-width: 1025px) {
+    body {
+        margin-left: 280px;
+    }
+
+    #side-menu {
+        width: 280px;
+        left: 0;
+    }
+
+    #burger-icon {
+        display: none;
+    }
+
+    .top-bar {
+        left: 0;
+        width: 100%;
+    }
+
+    .bottom-bar {
+        left: 280px;
+        width: calc(100% - 280px);
+    }
+
+    .header-title {
+        margin-left: 304px;
+    }
+
+    /* 280px Menü + 24px Abstand */
+}
+
+.fade-in {
+    animation: fadeInAnim 0.4s ease-out forwards;
+}
+
+@keyframes fadeInAnim {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   KOMPLETT ohne backdrop-filter um Flackern zu vermeiden
+   ======================================== */
+@media (max-width: 768px) {
+
+    /* SOLID Backgrounds statt backdrop-filter */
+    .top-bar {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: var(--header-bg) !important;
+    }
+
+    body.dark-theme .top-bar {
+        background: rgba(18, 18, 24, 0.98) !important;
+    }
+
+    .bottom-bar {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(30, 30, 40, 0.98) !important;
+    }
+
+    body.dark-theme .bottom-bar {
+        background: rgba(18, 18, 24, 0.98) !important;
+    }
+
+    /* Deaktiviere ALLE Animationen auf Mobile */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0.1s !important;
+    }
+
+    /* Ausnahme: Behalte fade-in für initiale Ansicht */
+    .fade-in {
+        animation-duration: 0.3s !important;
+    }
+
+    /* SOLID Backgrounds für Cards statt Glassmorphism */
+    /* AUSNAHME: .is-on Karten behalten ihren gelben Glow */
+    .device-card-bg,
+    .room-card-bg,
+    .scene-card-bg,
+    .sensor-card-bg {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Nur NICHT-aktive Geräte bekommen solid background */
+    .device-card-glass:not(.is-on) .device-card-bg,
+    .room-card-bg,
+    .scene-card-bg,
+    .sensor-card-bg {
+        background: var(--card-bg) !important;
+    }
+
+    body.dark-theme .device-card-glass:not(.is-on) .device-card-bg,
+    body.dark-theme .room-card-bg,
+    body.dark-theme .scene-card-bg,
+    body.dark-theme .sensor-card-bg {
+        background: rgba(30, 30, 40, 0.95) !important;
+    }
+
+    /* Aktive Lichter behalten ihre gelbe Farbe */
+    .device-card-glass.is-on .device-card-bg {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        /* Kein background override - lässt die gelbe Farbe aus raeume.css durch */
+    }
+}
+
+/* --- 7. Wetter --- */
+.weather-widget {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.weather-widget:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.weather-main {
+    text-align: center;
+}
+
+.temp-big {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.weather-status {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-primary);
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    gap: 16px;
+}
+
+.w-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    gap: 6px;
+}
+
+.w-item .material-icons {
+    color: var(--text-tertiary);
+    font-size: 22px;
+}
+
+/* Alarm-Farbe für Regen */
+.rain-active {
+    color: #ff6b6b !important;
+    font-weight: 600;
+}
+
+/* Alarm-Farben für das Wetter-Widget */
+.temp-cold {
+    color: #4dabf7 !important;
+}
+
+.temp-hot {
+    color: #ff6b6b !important;
+}
+
+.alarm-active {
+    color: #ff6b6b !important;
+    font-weight: 600;
+}
+
+/* Anpassung der Widget-Icons */
+.w-item .material-icons {
+    transition: color 0.3s ease;
+}
+
+/* Einheit-Text Styling */
+.unit-text {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* ========================================
+   GREETING SECTION
+   ======================================== */
+.greeting-section {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.greeting-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.greeting-date {
+    font-size: 1rem;
+    color: var(--text-tertiary);
+    margin: 0;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .greeting-text {
+        font-size: 1.8rem;
+    }
+
+    .greeting-date {
+        font-size: 0.9rem;
+    }
+}
+
+/* ========================================
+   HOME SECTIONS & GLOBAL SCENES
+   ======================================== */
+.home-section {
+    margin-top: 32px;
+}
+
+.section-spacer {
+    height: 24px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+}
+
+.section-title .material-icons {
+    color: var(--accent-primary);
+    font-size: 24px;
+}
+
+.scenes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+/* Scene Card Glassmorphism */
+.scene-card-glass {
+    position: relative;
+    min-height: 100px;
+    border-radius: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.scene-card-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .scene-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.scene-card-glass:hover .scene-card-bg {
+    background: linear-gradient(135deg,
+            rgba(0, 180, 216, 0.15) 0%,
+            rgba(0, 150, 199, 0.08) 100%);
+    border-color: rgba(0, 180, 216, 0.3);
+    box-shadow:
+        0 12px 40px rgba(0, 180, 216, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.scene-card-glass:active {
+    transform: scale(0.97);
+}
+
+.scene-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.scene-icon {
+    font-size: 36px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+    transition: transform 0.3s ease;
+}
+
+.scene-card-glass:hover .scene-icon {
+    transform: scale(1.15);
+}
+
+.scene-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+/* Room Scene Cards (larger) */
+.scene-card-room {
+    min-height: 140px;
+}
+
+.scene-card-room .scene-card-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 16px;
+}
+
+.scene-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.scene-icon-large {
+    font-size: 48px;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
+}
+
+.scene-info {
+    flex: 1;
+}
+
+.scene-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 6px 0;
+}
+
+.scene-desc {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+/* ========================================
+   TOAST NOTIFICATIONS
+   ======================================== */
+.scene-toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: linear-gradient(135deg,
+            rgba(16, 185, 129, 0.95) 0%,
+            rgba(5, 150, 105, 0.95) 100%);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow:
+        0 8px 32px rgba(16, 185, 129, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+}
+
+.scene-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.scene-toast .material-icons {
+    font-size: 22px;
+}
+
+/* ========================================
+   CAMERA PAGE
+   ======================================== */
+.cameras-page {
+    padding: 0;
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 24px 0;
+}
+
+.page-title .material-icons {
+    color: var(--accent-primary);
+    font-size: 28px;
+}
+
+.camera-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.camera-card-glass {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.camera-card-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .camera-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.camera-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.camera-placeholder {
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.5) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.camera-icon {
+    font-size: 64px !important;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.camera-status {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.camera-info {
+    padding: 20px;
+}
+
+.camera-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 8px 0;
+}
+
+.camera-url {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    font-family: 'Consolas', 'Monaco', monospace;
+    word-break: break-all;
+}
+
+.camera-note {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: rgba(0, 180, 216, 0.1);
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.camera-note .material-icons {
+    color: var(--accent-primary);
+}
+
+/* ========================================
+   SENSORIK PAGE
+   ======================================== */
+.sensorik-page {
+    padding: 0;
+}
+
+.sensor-section {
+    margin-bottom: 40px;
+}
+
+.sensor-section .section-title {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.section-desc {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    margin: 0 0 20px 0;
+}
+
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.sensor-card-glass {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.sensor-card-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .sensor-card-bg {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sensor-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 24px;
+}
+
+.sensor-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.sensor-icon {
+    font-size: 36px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+.sensor-info {
+    flex: 1;
+}
+
+.sensor-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 4px 0;
+}
+
+.sensor-room {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+}
+
+.sensor-control {
+    margin-top: 16px;
+}
+
+.sensor-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+}
+
+.sensor-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sensor-slider {
+    flex: 1;
+    height: 8px;
+    border-radius: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.2) 0%,
+            var(--accent-primary) 100%);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sensor-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    border: 2px solid var(--accent-primary);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.sensor-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(0, 180, 216, 0.4);
+}
+
+.sensor-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    border: 2px solid var(--accent-primary);
+    cursor: pointer;
+}
+
+.lux-slider {
+    background: linear-gradient(to right,
+            #1a1a2e 0%,
+            #ffd93d 100%);
+}
+
+.sensor-value {
+    min-width: 80px;
+    text-align: right;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   HAPTIC SWITCH ANIMATIONS
+   ======================================== */
+@keyframes hapticPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.device-card-glass:active {
+    animation: hapticPulse 0.15s ease-out;
+}
+
+/* Light on/off transition */
+.device-card-glass[data-type="light"],
+.device-card-glass[data-type="dimmer"],
+.device-card-glass[data-type="rgb"] {
+    transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.device-card-glass.is-on .device-icon-wrapper {
+    animation: glowOn 0.5s ease-out forwards;
+}
+
+@keyframes glowOn {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 217, 61, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(255, 217, 61, 0.6);
+    }
+
+    100% {
+        box-shadow: 0 0 20px rgba(255, 217, 61, 0.4);
+    }
+}
