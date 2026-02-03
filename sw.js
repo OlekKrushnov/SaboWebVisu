@@ -7,7 +7,7 @@
  * und den alten Cache zu löschen.
  */
 
-const CACHE_VERSION = 11;  // <-- Bei jeder Änderung erhöhen!
+const CACHE_VERSION = 12;  // <-- Bei jeder Änderung erhöhen!
 const CACHE_NAME = `smart-home-v${CACHE_VERSION}`;
 
 const urlsToCache = [
@@ -41,6 +41,8 @@ const urlsToCache = [
     '/images/sabo-full.png',
     '/images/logo-raspberrypi.png',
     '/images/logo-beckhoff.png',
+    '/images/logo-raspberrypi-dark.png',
+    '/images/logo-beckhoff-dark.png',
     '/manifest.json'
 ];
 

@@ -174,11 +174,29 @@ body.app-loading .topbar-logo {
 }
 
 .partner-logo {
-    height: 60px;
+    height: 80px;
     width: auto;
-    max-width: 120px;
+    max-width: 160px;
     object-fit: contain;
     filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* Light Mode: Zeige Light Logos, verstecke Dark Logos */
+.partner-logo-dark {
+    display: none;
+}
+
+.partner-logo-light {
+    display: block;
+}
+
+/* Dark Mode: Zeige Dark Logos, verstecke Light Logos */
+body.dark-theme .partner-logo-dark {
+    display: block;
+}
+
+body.dark-theme .partner-logo-light {
+    display: none;
 }
 
 /* Topbar Logo (statisch, keine Animation) */
