@@ -112,7 +112,7 @@ body.app-loading .topbar-logo {
 }
 
 .splash-logo {
-    width: 200px;
+    width: 280px;
     height: auto;
     margin-top: 24px;
     filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.1));
@@ -158,6 +158,27 @@ body.app-loading .topbar-logo {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Partner Logos am unteren Rand des Splash Screens */
+.splash-partners {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    animation: textFadeIn 1s ease-out 1s both;
+}
+
+.partner-logo {
+    height: 60px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
 }
 
 /* Topbar Logo (statisch, keine Animation) */
