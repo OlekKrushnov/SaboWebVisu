@@ -32,7 +32,16 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body>
+<body class="app-loading">
+    <!-- Splash Screen Overlay -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <img src="images/sabo-logo.png" alt="SABO Logo" class="splash-logo" id="splash-logo">
+            <p class="splash-text">Gebäudeautomation</p>
+            <p class="splash-subtext">powered by</p>
+        </div>
+    </div>
+
     <header class="top-bar">
         <div id="burger-icon" onclick="toggleMenu()">
             <span></span>
@@ -40,6 +49,7 @@
             <span></span>
         </div>
         <div id="fix-header-title" class="header-title">Smart Home</div>
+        <img src="images/sabo-logo.png" alt="SABO" class="topbar-logo" id="topbar-logo">
     </header>
 
     <nav id="side-menu">

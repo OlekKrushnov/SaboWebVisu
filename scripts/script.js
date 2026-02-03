@@ -1,3 +1,70 @@
+// ============================================================================
+// SPLASH SCREEN
+// ============================================================================
+
+/**
+ * Initialisiert und steuert den Splash Screen
+ * Dauer: 4 Sekunden, dann Animation des Logos zur Topbar
+ */
+function initSplashScreen() {
+    const splashScreen = document.getElementById('splash-screen');
+    const splashLogo = document.getElementById('splash-logo');
+    const topbarLogo = document.getElementById('topbar-logo');
+
+    if (!splashScreen || !splashLogo) {
+        // Kein Splash Screen, direkt App starten
+        document.body.classList.remove('app-loading');
+        loadPage('home', document.querySelector('a[onclick*="home"]'));
+        return;
+    }
+
+    // Phase 1: Splash anzeigen (3 Sekunden warten)
+    setTimeout(() => {
+        // Phase 2: Logo zur Topbar animieren
+        splashLogo.classList.add('animate-to-topbar');
+
+        // Text ausblenden
+        const splashContent = document.querySelector('.splash-content');
+        if (splashContent) {
+            splashContent.querySelectorAll('p').forEach(p => {
+                p.style.opacity = '0';
+                p.style.transition = 'opacity 0.5s ease';
+            });
+        }
+
+        // Phase 3: Nach Logo-Animation - Splash ausblenden und App freigeben
+        setTimeout(() => {
+            // Topbar-Logo sichtbar machen
+            if (topbarLogo) {
+                topbarLogo.style.opacity = '1';
+            }
+
+            // Splash ausblenden
+            splashScreen.classList.add('hidden');
+
+            // App-Interaktion freigeben
+            document.body.classList.remove('app-loading');
+
+            // Home-Seite laden
+            loadPage('home', document.querySelector('a[onclick*="home"]'));
+
+            // Splash nach Transition entfernen
+            setTimeout(() => {
+                splashScreen.remove();
+            }, 1000);
+
+        }, 1000); // 1 Sekunde für Logo-Animation
+
+    }, 3000); // 3 Sekunden Splash-Anzeige
+}
+
+// Splash Screen beim Laden starten
+document.addEventListener('DOMContentLoaded', initSplashScreen);
+
+// ============================================================================
+// MENU & NAVIGATION
+// ============================================================================
+
 function toggleMenu() {
     const menu = document.getElementById('side-menu');
     const icon = document.getElementById('burger-icon');
