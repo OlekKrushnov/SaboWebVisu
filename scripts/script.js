@@ -4,7 +4,7 @@
 
 /**
  * Initialisiert und steuert den Splash Screen
- * Dauer: 4 Sekunden, dann Animation des Logos zur Topbar
+ * Dauer: 4 Sekunden total (3s Anzeige + 1s Logo-Animation)
  */
 function initSplashScreen() {
     const splashScreen = document.getElementById('splash-screen');
@@ -18,23 +18,49 @@ function initSplashScreen() {
         return;
     }
 
+    // Topbar-Logo initial verstecken
+    if (topbarLogo) {
+        topbarLogo.style.opacity = '0';
+    }
+
     // Phase 1: Splash anzeigen (3 Sekunden warten)
     setTimeout(() => {
-        // Phase 2: Logo zur Topbar animieren
-        splashLogo.classList.add('animate-to-topbar');
-
         // Text ausblenden
         const splashContent = document.querySelector('.splash-content');
         if (splashContent) {
             splashContent.querySelectorAll('p').forEach(p => {
                 p.style.opacity = '0';
-                p.style.transition = 'opacity 0.5s ease';
+                p.style.transition = 'opacity 0.3s ease';
             });
         }
 
+        // Phase 2: Logo zur Topbar fliegen lassen
+        // Aktuelle Position des Logos ermitteln
+        const logoRect = splashLogo.getBoundingClientRect();
+        const logoStartX = logoRect.left + logoRect.width / 2;
+        const logoStartY = logoRect.top + logoRect.height / 2;
+
+        // Zielposition (Topbar rechts oben)
+        const targetX = window.innerWidth - 60; // 60px vom rechten Rand
+        const targetY = 32; // Mitte der Topbar
+
+        // Verschiebung berechnen
+        const deltaX = targetX - logoStartX;
+        const deltaY = targetY - logoStartY;
+
+        // Skalierung (200px -> 80px = 0.4)
+        const scale = 0.4;
+
+        // Animation anwenden
+        splashLogo.style.transition = 'transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease 0.9s';
+        splashLogo.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
+
         // Phase 3: Nach Logo-Animation - Splash ausblenden und App freigeben
         setTimeout(() => {
-            // Topbar-Logo sichtbar machen
+            // Splash-Logo ausblenden
+            splashLogo.style.opacity = '0';
+
+            // Topbar-Logo einblenden
             if (topbarLogo) {
                 topbarLogo.style.opacity = '1';
             }
