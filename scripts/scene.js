@@ -313,33 +313,33 @@ function renderRoomScenes(roomId) {
 // ============================================================================
 
 /**
- * Benutzerdefinierte Szenen (werden aus LocalStorage geladen)
+ * Benutzerdefinierte Szenen (werden über Storage API geladen)
  */
 let userGlobalScenes = [];
 let userRoomScenes = {};
 
 /**
- * Lädt User-Szenen aus LocalStorage beim Start
+ * Lädt User-Szenen über Storage API
  */
-function loadUserScenes() {
+async function loadUserScenes() {
     try {
-        const globalData = localStorage.getItem('userGlobalScenes');
-        const roomData = localStorage.getItem('userRoomScenes');
+        const globalData = await Storage.load('userGlobalScenes', []);
+        const roomData = await Storage.load('userRoomScenes', {});
 
-        if (globalData) userGlobalScenes = JSON.parse(globalData);
-        if (roomData) userRoomScenes = JSON.parse(roomData);
+        userGlobalScenes = globalData;
+        userRoomScenes = roomData;
     } catch (e) {
         console.error('Fehler beim Laden der User-Szenen:', e);
     }
 }
 
 /**
- * Speichert User-Szenen in LocalStorage
+ * Speichert User-Szenen über Storage API
  */
-function saveUserScenes() {
+async function saveUserScenes() {
     try {
-        localStorage.setItem('userGlobalScenes', JSON.stringify(userGlobalScenes));
-        localStorage.setItem('userRoomScenes', JSON.stringify(userRoomScenes));
+        await Storage.save('userGlobalScenes', userGlobalScenes);
+        await Storage.save('userRoomScenes', userRoomScenes);
     } catch (e) {
         console.error('Fehler beim Speichern der User-Szenen:', e);
     }
@@ -350,7 +350,7 @@ function saveUserScenes() {
  * @param {Object} scene - Das Szenen-Objekt
  * @param {string|null} roomId - null = global, sonst Raum-ID
  */
-function addUserScene(scene, roomId = null) {
+async function addUserScene(scene, roomId = null) {
     scene.id = 'user_' + Date.now();
 
     if (roomId) {
@@ -360,22 +360,22 @@ function addUserScene(scene, roomId = null) {
         userGlobalScenes.push(scene);
     }
 
-    saveUserScenes();
+    await saveUserScenes();
 }
 
 /**
  * Löscht eine User-Szene
  */
-function deleteUserScene(sceneId, roomId = null) {
+async function deleteUserScene(sceneId, roomId = null) {
     if (roomId) {
         if (userRoomScenes[roomId]) {
             userRoomScenes[roomId] = userRoomScenes[roomId].filter(s => s.id !== sceneId);
-            saveUserScenes();
+            await saveUserScenes();
             renderRoomScenes(roomId);
         }
     } else {
         userGlobalScenes = userGlobalScenes.filter(s => s.id !== sceneId);
-        saveUserScenes();
+        await saveUserScenes();
         renderSzenenPage();
     }
     showSceneToast('Szene gelöscht');
