@@ -5,22 +5,18 @@
 /**
  * Initialisiert und steuert den Splash Screen
  * Dauer: 4 Sekunden total (3s Anzeige + 1s Logo-Animation)
+ * Das Logo fliegt von der Mitte zur Topbar und BLEIBT dort.
  */
 function initSplashScreen() {
     const splashScreen = document.getElementById('splash-screen');
     const splashLogo = document.getElementById('splash-logo');
-    const topbarLogo = document.getElementById('topbar-logo');
+    const topbar = document.querySelector('.top-bar');
 
     if (!splashScreen || !splashLogo) {
         // Kein Splash Screen, direkt App starten
         document.body.classList.remove('app-loading');
         loadPage('home', document.querySelector('a[onclick*="home"]'));
         return;
-    }
-
-    // Topbar-Logo initial verstecken (wird nach Splash-Animation sichtbar)
-    if (topbarLogo) {
-        topbarLogo.style.visibility = 'hidden';
     }
 
     // Phase 1: Splash anzeigen (3 Sekunden warten)
@@ -38,7 +34,7 @@ function initSplashScreen() {
         // Aktuelle Position des Logos ermitteln
         const logoRect = splashLogo.getBoundingClientRect();
 
-        // CSS Animation stoppen und Position fixieren
+        // CSS Animation stoppen
         splashLogo.style.animation = 'none';
 
         // Logo auf fixed setzen an seiner aktuellen Position
@@ -46,6 +42,7 @@ function initSplashScreen() {
         splashLogo.style.left = logoRect.left + 'px';
         splashLogo.style.top = logoRect.top + 'px';
         splashLogo.style.width = logoRect.width + 'px';
+        splashLogo.style.height = 'auto';
         splashLogo.style.margin = '0';
         splashLogo.style.zIndex = '10001';
 
@@ -57,23 +54,25 @@ function initSplashScreen() {
             const targetWidth = 80;
 
             // Transition setzen und zum Ziel animieren
-            splashLogo.style.transition = 'left 1s cubic-bezier(0.4, 0, 0.2, 1), top 1s cubic-bezier(0.4, 0, 0.2, 1), width 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            splashLogo.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
             splashLogo.style.left = (window.innerWidth - targetRight - targetWidth) + 'px';
             splashLogo.style.top = targetTop + 'px';
             splashLogo.style.width = targetWidth + 'px';
         });
 
-        // Phase 3: Nach Logo-Animation - Splash ausblenden und App freigeben
+        // Phase 3: Nach Logo-Animation - Logo in Topbar einfügen und Splash entfernen
         setTimeout(() => {
-            // Splash-Logo ausblenden
-            splashLogo.style.opacity = '0';
+            // Logo aus Splash entfernen und in Topbar einfügen
+            splashLogo.remove();
 
-            // Topbar-Logo sichtbar machen (sofort, keine Animation)
-            if (topbarLogo) {
-                topbarLogo.style.visibility = 'visible';
-            }
+            // Neues Logo-Element für Topbar erstellen (das animierte Logo bleibt visuell gleich)
+            const topbarLogo = document.createElement('img');
+            topbarLogo.src = 'images/sabo-logo.png';
+            topbarLogo.alt = 'SABO';
+            topbarLogo.className = 'topbar-logo';
+            topbar.appendChild(topbarLogo);
 
-            // Splash ausblenden
+            // Splash-Hintergrund ausblenden
             splashScreen.classList.add('hidden');
 
             // App-Interaktion freigeben
@@ -82,10 +81,10 @@ function initSplashScreen() {
             // Home-Seite laden
             loadPage('home', document.querySelector('a[onclick*="home"]'));
 
-            // Splash nach Transition entfernen
+            // Splash-Overlay nach Transition komplett entfernen
             setTimeout(() => {
                 splashScreen.remove();
-            }, 1000);
+            }, 800);
 
         }, 1000); // 1 Sekunde für Logo-Animation
 
